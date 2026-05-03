@@ -5,22 +5,24 @@ using namespace std;
 #include "Header.h"
 
 int main() {
-    const unsigned int SIZE = 3;
+    uint SIZE;
+    cout << "Enter number of books: ";
+    cin >> SIZE;
 
-    Book books[SIZE];
+    Book* books = new Book[SIZE];
 
-    for (unsigned int i = 0; i < SIZE; i++)
+    for (uint i = 0; i < SIZE; i++)
     {
         cout << "\n--- Create book " << i + 1 << " ---\n";
         books[i] = createBook();
     }
 
-    printBooks(books, 3);
-
+    printBooks(books, SIZE);
     searchBook(books, SIZE);
 
-    for (int i = 0; i < 3; i++)
+    for (uint i = 0; i < SIZE; i++)
         delete[] books[i].title;
+    delete[] books;
 
     return 0;
 }

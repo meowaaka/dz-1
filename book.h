@@ -1,8 +1,10 @@
 #pragma once
 
+typedef unsigned int uint;
+
 struct Book {
-	unsigned int Id;
+	uint Id;
 	char* title;
-	unsigned int pages;
+	uint pages;
 	float price;
 };

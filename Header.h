@@ -27,18 +27,19 @@ Book createBook() {
     cout << "Enter price - ";
     cin >> book.price;
 
+
     return book;
 }
 
-void printBooks(Book* books, unsigned int size) {
+void printBooks(Book* books, uint size) {
     cout << "\nEveryone books:\n";
     for (unsigned int i = 0; i < size; i++) {
         printBook(books[i]);
     }
 }
 
-Book* findBookByTitle(Book* books, unsigned int size, const char* title) {
-    for (unsigned int i = 0; i < size; i++) {
+Book* findBookByTitle(Book* books, uint size, const char* title) {
+    for (uint i = 0; i < size; i++) {
         if (strcmp(books[i].title, title) == 0) {
             return &books[i];
         }
@@ -46,7 +47,7 @@ Book* findBookByTitle(Book* books, unsigned int size, const char* title) {
     return nullptr;
 }
 
-void searchBook(Book* books, unsigned int size)
+void searchBook(Book* books, uint size)
 {
     char searchTitle[N];
     cout << "\nEnter title to find: ";
