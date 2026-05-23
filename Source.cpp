@@ -1,54 +1,61 @@
 #include <iostream>
 using namespace std;
 
-int main() {
-    const char* PATH_TO_FILE = "test.txt";
-    const char* MODE = "a"; //"w" - write, "a" - append, "r" - read
+struct Fraction
+{
+    int numerator;
+    int denominator;
+};
+
+void writeFractions(const char* filename, Fraction* arr, int size)
+{
     FILE* file;
-    int code = fopen_s(&file, PATH_TO_FILE, MODE); // відкрити файл
-    unsigned int num = 0;
-    char ch;
-    do {
-        cout << "Enter char (q - quit) = ";
-        ch = getchar();
-        if (ch >= '0' && ch <= '9') {
-            num++;
-        }
+    if (fopen_s(&file, filename, "wb") == 0)
+    {
+        fwrite(reinterpret_cast<void*>(arr), sizeof(Fraction), size, file);
+        fclose(file);
+    }
+    else
+    {
+        cout << "Не вдалося відкрити файл для запису!" << endl;
+    }
+}
 
-        if (ch == 'q') {
-            break;
-        }
-        fputc(ch, file);
-        cin.ignore();
+void readFractions(const char* filename, Fraction* arr, int size)
+{
+    FILE* file;
+    if (fopen_s(&file, filename, "rb") == 0)
+    {
+        fread(reinterpret_cast<void*>(arr), sizeof(Fraction), size, file);
+        fclose(file);
 
-    } while (true);
-    cout << "Digits entered = " << num << endl;
-
-    if (code == 0) { //SUCCES
-        fclose(file); // закрити файл
-
-        // Тепер відкриваємо файл для читання
-        FILE* readFile;
-        fopen_s(&readFile, PATH_TO_FILE, "r");
-        if (readFile) {
-            unsigned int digits = 0, upper = 0, lower = 0;
-            char c;
-            while ((c = fgetc(readFile)) != EOF) {
-                if (c >= '0' && c <= '9') digits++;
-                else if (c >= 'A' && c <= 'Z') upper++;
-                else if (c >= 'a' && c <= 'z') lower++;
-            }
-            fclose(readFile);
-
-            cout << "In file:\n";
-            cout << "Digits = " << digits << endl;
-            cout << "Uppercase letters = " << upper << endl;
-            cout << "Lowercase letters = " << lower << endl;
+        for (int i = 0; i < size; i++)
+        {
+            cout << arr[i].numerator << "/" << arr[i].denominator << endl;
         }
     }
-    else { //ERROR
-        cout << code;
+    else
+    {
+        cout << "Не вдалося відкрити файл для читання!" << endl;
     }
+}
+
+int main()
+{
+    const unsigned int N = 5;
+    Fraction fractions[N] = {
+        {1, 2},
+        {3, 4},
+        {5, 6},
+        {7, 8},
+        {9, 10}
+    };
+
+    writeFractions("fractions.bin", fractions, N);
+
+    Fraction loaded[N];
+
+    readFractions("fractions.bin", loaded, N);
 
     return 0;
 }
