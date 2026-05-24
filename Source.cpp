@@ -17,7 +17,7 @@ void writeFractions(const char* filename, Fraction* arr, int size)
     }
     else
     {
-        cout << "Не вдалося відкрити файл для запису!" << endl;
+        cout << "Unable to open the file for reading!" << endl;
     }
 }
 
@@ -36,7 +36,7 @@ void readFractions(const char* filename, Fraction* arr, int size)
     }
     else
     {
-        cout << "Не вдалося відкрити файл для читання!" << endl;
+        cout << "Unable to open the file for reading!" << endl;
     }
 }
 
