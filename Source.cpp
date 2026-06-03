@@ -1,20 +1,40 @@
 #include <iostream>
 using namespace std;
 
-#define POWER(base, exp) (pow((base), (exp)))
+int* multiplyByTwo(const int* arr, int size) {
+    int* newArr = new int[size];
+    for (int i = 0; i < size; i++) {
+        newArr[i] = arr[i] * 2;
+    }
+    return newArr;
+}
 
-#define SQRT(num) (sqrt((num)))
-
-#define MULTIPLY3(a, b, c) ((a) * (b) * (c))
+void printCharsBetweenKandV(const char* str) {
+    cout << "Characters between 'k' and 'v': ";
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] > 'k' && str[i] < 'v') {
+            cout << str[i] << " ";
+        }
+    }
+    cout << endl;
+}
 
 int main() {
-    double x = 2.0;
-    double y = 9.0;
-    int a = 2, b = 3, c = 4;
+    int arr[] = { 1, 2, 3, 4, 5 };
+    int size = sizeof(arr) / sizeof(arr[0]);
 
-    cout << "2^3 = " << POWER(x, 3) << endl;
-    cout << "sqrt(9) = " << SQRT(y) << endl;
-    cout << "2 * 3 * 4 = " << MULTIPLY3(a, b, c) << endl;
+    int* doubledArr = multiplyByTwo(arr, size);
+
+    cout << "New array: ";
+    for (int i = 0; i < size; i++) {
+        cout << doubledArr[i] << " ";
+    }
+    cout << endl;
+
+    delete[] doubledArr;
+
+    const char* text = "hello world kv zebra";
+    printCharsBetweenKandV(text);
 
     return 0;
 }
